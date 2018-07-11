@@ -18,7 +18,25 @@ RUN apt update && apt install -y --no-install-recommends \
     libx11-dev \
     libegl1-mesa-dev \
     ca-certificates \
-    python3-dev && \
+    python3 \
+    python3-dev \
+    python3-future \
+    python3-setuptools \
+    python3-wheel \
+    python3-tk \
+    apt-utils \
+    g++  \
+    zlib1g-dev \
+    xvfb \
+    libav-tools \
+    xorg-dev \
+    libboost-all-dev \
+    libsdl2-dev \
+    swig \
+    libopenblas-base \
+    libatlas-dev \
+    cython3  \
+    tmux && \
     rm -rf /var/lib/apt/lists/*
 
 ENV PYTHON_VERSION=3.5.5
@@ -30,7 +48,7 @@ RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-la
     /opt/conda/bin/conda create -y --name pytorch-py$PYTHON_VERSION python=$PYTHON_VERSION numpy pyyaml scipy ipython mkl mkl-devel && \
     /opt/conda/bin/conda install -c mingfeima --name pytorch-py$PYTHON_VERSION mkldnn && \
     /opt/conda/bin/conda clean -ya && \
-    /opt/conda/envs/pytorch-py$PYTHON_VERSION/bin/pip install gym atari_py matplotlib jupyter tensorboardX
+    /opt/conda/envs/pytorch-py$PYTHON_VERSION/bin/pip install atari_py matplotlib jupyter tensorboardX torchvision PyOpenGL piglet pyglet JSAnimation ipywidgets scipy gym[all]
 ENV PATH /opt/conda/envs/pytorch-py$PYTHON_VERSION/bin:/opt/conda/bin:$PATH
 
 # Compile PyTorch
@@ -40,4 +58,18 @@ RUN git clone --single-branch -b master https://github.com/pytorch/pytorch && \
     git submodule update --init && \
     NO_CUDA=1 python setup.py install
 
+# Compile House3D
+WORKDIR /opt
+RUN git clone --single-branch -b master http://github.com/facebookresearch/House3D && \
+    cd House3D && \
+    git submodule update --init && \
+    cd renderer && \
+    SYSTEM=conda.linux PYTHON_CONFIG=/opt/conda/envs/pytorch-py$PYTHON_VERSION/bin/python3-config make && \
+    cd .. && \
+    pip install .
+
 WORKDIR /
+RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
+CMD xvfb-run -s "-screen 0 1400x900x24" \
+    /usr/local/bin/jupyter notebook \
+    --port=8888 --ip=0.0.0.0 --allow-root
