@@ -1,4 +1,5 @@
-FROM nvidia/opengl:1.0-glvnd-devel-ubuntu16.04
+# FROM nvidia/opengl:1.0-glvnd-devel-ubuntu16.04
+FROM ubuntu:16.04
 
 ENV http_proxy http://proxy.int.europe.naverlabs.com:3128
 ENV https_proxy https://proxy.int.europe.naverlabs.com:3128
@@ -24,6 +25,7 @@ RUN apt update && apt install -y --no-install-recommends \
     python3-setuptools \
     python3-wheel \
     python3-tk \
+    python-opengl \
     apt-utils \
     g++  \
     zlib1g-dev \
@@ -48,7 +50,7 @@ RUN curl -o ~/miniconda.sh -O  https://repo.continuum.io/miniconda/Miniconda3-la
     /opt/conda/bin/conda create -y --name pytorch-py$PYTHON_VERSION python=$PYTHON_VERSION numpy pyyaml scipy ipython mkl mkl-devel && \
     /opt/conda/bin/conda install -c mingfeima --name pytorch-py$PYTHON_VERSION mkldnn && \
     /opt/conda/bin/conda clean -ya && \
-    /opt/conda/envs/pytorch-py$PYTHON_VERSION/bin/pip install atari_py matplotlib jupyter tensorboardX torchvision PyOpenGL piglet pyglet JSAnimation ipywidgets scipy gym[all]
+    /opt/conda/envs/pytorch-py$PYTHON_VERSION/bin/pip install atari_py matplotlib jupyter tensorboardX PyOpenGL piglet pyglet JSAnimation ipywidgets scipy gym[all]
 ENV PATH /opt/conda/envs/pytorch-py$PYTHON_VERSION/bin:/opt/conda/bin:$PATH
 
 # Compile PyTorch
@@ -56,19 +58,30 @@ WORKDIR /opt
 RUN git clone --single-branch -b master https://github.com/pytorch/pytorch && \
     cd pytorch && \
     git submodule update --init && \
-    NO_CUDA=1 python setup.py install
+    NO_NNPACK=1 NO_DISTRIBUTED=1 NO_CUDA=1 python setup.py install
+
+# Compile TorchVision
+WORKDIR /opt
+RUN git clone --single-branch -b master https://github.com/pytorch/vision && \
+    cd vision && \
+    python setup.py install
 
 # Compile House3D
-WORKDIR /opt
-RUN git clone --single-branch -b master http://github.com/facebookresearch/House3D && \
-    cd House3D && \
-    git submodule update --init && \
-    cd renderer && \
-    SYSTEM=conda.linux PYTHON_CONFIG=/opt/conda/envs/pytorch-py$PYTHON_VERSION/bin/python3-config make && \
-    cd .. && \
-    pip install .
+# WORKDIR /opt
+# RUN git clone --single-branch -b master http://github.com/facebookresearch/House3D && \
+#     cd House3D && \
+#     git submodule update --init && \
+#     cd renderer && \
+#     SYSTEM=conda.linux PYTHON_CONFIG=/opt/conda/envs/pytorch-py$PYTHON_VERSION/bin/python3-config make && \
+#     cd .. && \
+#     pip install .
 
 WORKDIR /
-RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
+COPY run.sh /
+RUN chmod +x /run.sh
 
-CMD xvfb-run -s "-screen 0 1400x900x24" $(jupyter notebook --allow-root)
+# Juoyter notebook port
+EXPOSE 8888
+
+ENTRYPOINT ["/run.sh"]
+CMD ["jupyter notebook --allow-root --ip 0.0.0.0"]

@@ -7,7 +7,7 @@ docker run --name pytorch --rm \
     -e DISPLAY=$DISPLAY \
     --net=host \
     --mount 'type=bind,src=/home/gryou/Workspace/deeplearning_tutorial,dst=/app' \
-    -it pytorch bash
+    -it pytorch:ubuntu bash
 
 jupyter notebook --allow-root
 ```
