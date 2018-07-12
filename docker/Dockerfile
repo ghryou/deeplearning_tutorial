@@ -70,6 +70,5 @@ RUN git clone --single-branch -b master http://github.com/facebookresearch/House
 
 WORKDIR /
 RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
-CMD xvfb-run -s "-screen 0 1400x900x24" \
-    /usr/local/bin/jupyter notebook \
-    --port=8888 --ip=0.0.0.0 --allow-root
+
+CMD xvfb-run -s "-screen 0 1400x900x24" $(jupyter notebook --allow-root)
