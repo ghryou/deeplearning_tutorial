@@ -1,7 +1,7 @@
 # deeplearning_tutorial
 
 ## Syllabus
-
+<br/>
 1. Introduction - setup & components ( perceptrons, relu, cnn )  & MNIST 
 <br/>
 2. cost function, back propagation & DNN for classification & Transfer learning
