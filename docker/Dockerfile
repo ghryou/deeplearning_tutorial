@@ -1,11 +1,6 @@
 # FROM nvidia/opengl:1.0-glvnd-devel-ubuntu16.04
 FROM ubuntu:16.04
 
-ENV http_proxy http://proxy.int.europe.naverlabs.com:3128
-ENV https_proxy https://proxy.int.europe.naverlabs.com:3128
-ENV HTTP_PROXY http://proxy.int.europe.naverlabs.com:3128
-ENV HTTPS_PROXY https://proxy.int.europe.naverlabs.com:3128
-
 RUN apt update && apt install -y --no-install-recommends \
     build-essential \
     git \
