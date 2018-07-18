@@ -21,4 +21,17 @@ docker run --name pytorch --rm \
     -it pytorch bash
 
 jupyter notebook --allow-root
+'''
+
+With GPU
+'''
+docker run --name pytorch --rm \
+   --runtime=nvidia \
+   -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+   -v "$HOME/.Xauthority:/root/.Xauthority:rw" \
+   -e QT_X11_NO_MITSHM=1 \
+   -e DISPLAY=$DISPLAY \
+   --net=host \
+   --mount 'type=bind,src=/home/naverlabs/DNN_workspace,dst=/app' \
+   -it pytorch:cuda2 bash​
 ```

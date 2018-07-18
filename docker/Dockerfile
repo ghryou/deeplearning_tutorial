@@ -1,4 +1,3 @@
-# FROM nvidia/opengl:1.0-glvnd-devel-ubuntu16.04
 FROM ubuntu:16.04
 
 RUN apt update && apt install -y --no-install-recommends \
