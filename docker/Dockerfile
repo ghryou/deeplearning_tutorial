@@ -52,7 +52,7 @@ WORKDIR /opt
 RUN git clone --single-branch -b master https://github.com/pytorch/pytorch && \
     cd pytorch && \
     git submodule update --init && \
-    NO_NNPACK=1 NO_DISTRIBUTED=1 NO_CUDA=1 python setup.py install
+    NO_NNPACK=1 NO_DISTRIBUTED=1 NO_CUDA=1 NO_SYSTEM_NCCL=1 NO_CUDNN=1 python setup.py install
 
 # Compile TorchVision
 WORKDIR /opt

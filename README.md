@@ -12,6 +12,7 @@
 9. End-to-end Visuomotor Learning Review
 
 ## Docker Setup
+### Dockerfile CPU
 ```
 docker run --name pytorch --rm \
     -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
@@ -21,10 +22,10 @@ docker run --name pytorch --rm \
     -it pytorch bash
 
 jupyter notebook --allow-root
-'''
+```
 
-With GPU
-'''
+### Dockerfile GPU
+```
 docker run --name pytorch --rm \
    --runtime=nvidia \
    -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
