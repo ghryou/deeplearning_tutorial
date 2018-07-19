@@ -36,3 +36,13 @@ docker run --name pytorch --rm \
    --mount 'type=bind,src=/home/naverlabs/DNN_workspace,dst=/app' \
    -it pytorch:cuda2 bash​
 ```
+
+### Docker Cheat Sheet
+```
+docker build -t <tag name> -f <Dockerfile path> <Dockerfile directory>
+docker images
+docker ps -al
+docker stop <image id>
+docker rmi <image id>
+docker system prune
+```
