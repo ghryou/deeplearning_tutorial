@@ -17,6 +17,7 @@
 docker run --name pytorch --rm \
     -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     -e DISPLAY=$DISPLAY \
+    -p 8888:8888 \
     --net=host \
     --mount 'type=bind,src=/home/ghryou/Workspace/deeplearning_tutorial,dst=/app' \
     -it pytorch bash
