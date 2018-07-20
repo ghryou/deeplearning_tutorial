@@ -38,8 +38,16 @@ docker run --name pytorch --rm \
    -it pytorch:cuda2 bash​
 ```
 
-### Docker Cheat Sheet
+### Docker on Windows
 ```
+docker run --name pytorch --rm ^
+-p 8888:8888 ^
+--mount 'type=bind,src=C:\USERS\naverlabs\Desktop\DNN_workspace,dst=/app' ^
+-it ghryou/pytorch:cpu bash​
+```
+**(For Windows, please setup shared memory at docker settings)**
+
+### Docker Cheat Sheet
 docker build -t <tag name> -f <Dockerfile path> <Dockerfile directory>
 docker images
 docker ps -al
