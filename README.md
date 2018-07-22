@@ -48,6 +48,7 @@ docker run --name pytorch --rm ^
 **(For Windows, please setup shared memory at docker settings)**
 
 ### Docker Cheat Sheet
+```
 docker build -t <tag name> -f <Dockerfile path> <Dockerfile directory>
 docker images
 docker ps -al
@@ -55,3 +56,5 @@ docker stop <image id>
 docker rmi <image id>
 docker system prune
 ```
+
+[Push images to Docker Cloud](Push images to Docker Cloud](https://docs.docker.com/docker-cloud/builds/push-images/)
