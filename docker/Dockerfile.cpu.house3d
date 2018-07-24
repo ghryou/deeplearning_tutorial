@@ -61,6 +61,16 @@ RUN git clone --single-branch -b master https://github.com/pytorch/vision && \
     cd vision && \
     python setup.py install
 
+# Compile House3D
+# WORKDIR /opt
+# RUN git clone --single-branch -b master http://github.com/facebookresearch/House3D && \
+#     cd House3D && \
+#     git submodule update --init && \
+#     cd renderer && \
+#     SYSTEM=conda.linux PYTHON_CONFIG=/opt/conda/envs/pytorch-py$PYTHON_VERSION/bin/python3-config make && \
+#     cd .. && \
+#     pip install .
+
 WORKDIR /
 COPY run.sh /
 RUN chmod +x /run.sh
@@ -68,5 +78,5 @@ RUN chmod +x /run.sh
 # Juoyter notebook port
 EXPOSE 8888
 
-# ENTRYPOINT ["/run.sh"]
-CMD ["/run.sh", "jupyter notebook --allow-root --ip 0.0.0.0"]
+ENTRYPOINT ["/run.sh"]
+CMD ["jupyter notebook --allow-root --ip 0.0.0.0"]

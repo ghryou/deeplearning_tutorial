@@ -1,26 +1,27 @@
 # deeplearning_tutorial
 
 ## Syllabus
-1. Introduction - setup & components ( perceptrons, relu, cnn )  & MNIST
-2. cost function, back propagation & DNN for classification & Transfer learning
-3. rnn & lstm, training technique ( BN, regularization, dropout, augmentation ) & Tensorboard
-4. Detection & Segmentation ( Yolo2 experiment & Deeplab v3 experiment )
-5. RL intro ( DQN & Atari experiment )
-6. Gym env ( A3C & Navigation experiment )
-7. Generative Model ( Auto-encoder & GAN & DCGAN ...? )
+1. Machine Learning Basic
+2. Neural Network & Training Techniques
+3. Convlutional Neural Network & Recurrent Neural Network
+4. Detection & Segmentation ( Yolo2 )
+5. Reinforcement Learning ( DQN & gym )
+6. Reinforcement Learning ( A3C )
+7. Generative Model ( Auto-encoder & GAN & DCGAN )
 8. Jetson TX2 setup & Test TensorRT
-9. End-to-end Visuomotor Learning Review
+9. Paper Review
 
 ## Docker Setup
 ### Dockerfile CPU
 ```
 docker run --name pytorch --rm \
     -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    -v "$HOME/.Xauthority:/root/.Xauthority:rw" \
     -e DISPLAY=$DISPLAY \
     -p 8888:8888 \
     --net=host \
     --mount 'type=bind,src=/home/ghryou/Workspace/deeplearning_tutorial,dst=/app' \
-    -it pytorch bash
+    -it ghryou/pytorch:cpu bash
 
 jupyter notebook --allow-root
 ```
@@ -34,18 +35,25 @@ docker run --name pytorch --rm \
    -e QT_X11_NO_MITSHM=1 \
    -e DISPLAY=$DISPLAY \
    --net=host \
-   --mount 'type=bind,src=/home/naverlabs/DNN_workspace,dst=/app' \
-   -it pytorch:cuda2 bash​
+   --mount 'type=bind,src=/home/naverlabs/Workspace/deeplearning_tutorial,dst=/app' \
+   -it ghryou/pytorch:gpu bash​
 ```
 
 ### Docker on Windows
 ```
 docker run --name pytorch --rm ^
 -p 8888:8888 ^
---mount 'type=bind,src=C:\USERS\naverlabs\Desktop\DNN_workspace,dst=/app' ^
+--mount 'type=bind,src=C:\USERS\naverlabs\Desktop\deeplearning_tutorial,dst=/app' ^
 -it ghryou/pytorch:cpu bash​
 ```
 **(For Windows, please setup shared memory at docker settings)**
+
+
+### Ubuntu Commands
+```
+sudo chown <User name> -R <directory path>
+```
+
 
 ### Docker Cheat Sheet
 ```
