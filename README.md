@@ -50,6 +50,17 @@ docker run --name pytorch --rm ^
 **(For Windows, please setup shared memory at docker settings)**
 
 
+### Docker on Mac
+1. Install [homebrew](https://brew.sh/index_ko)
+2. brew install xquartx
+3. Follow [this link](https://sourabhbajaj.com/blog/2017/02/07/gui-applications-docker-mac/) for X11 security Setup
+4. Run this code
+```
+open -a XQuartz
+./docker/run.mac.sh ghryou/pytorch:cpu bash
+```
+
+
 ### Ubuntu Commands
 ```
 sudo chown <User name> -R <directory path>
@@ -59,6 +70,7 @@ sudo chown <User name> -R <directory path>
 ### Docker Cheat Sheet
 ```
 docker build -t <tag name> -f <Dockerfile path> <Dockerfile directory>
+docker exec -it pytorch bash
 docker images
 docker ps -al
 docker stop <image id>
