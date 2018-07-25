@@ -17,6 +17,7 @@
 docker run --name pytorch --rm \
     -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     -v "$HOME/.Xauthority:/root/.Xauthority:rw" \
+    -e QT_X11_NO_MITSHM=1 \
     -e DISPLAY=$DISPLAY \
     -p 8888:8888 \
     --net=host \
@@ -65,4 +66,4 @@ docker rmi <image id>
 docker system prune
 ```
 
-[Push images to Docker Cloud](Push images to Docker Cloud](https://docs.docker.com/docker-cloud/builds/push-images/)
+[Push images to Docker Cloud](https://docs.docker.com/docker-cloud/builds/push-images/)

@@ -1,4 +1,7 @@
 data/*
+runs/*
+notebook/runs/*
+
 *~
 *.pyc
 
