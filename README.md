@@ -12,7 +12,7 @@
 9. Paper Review
 
 ## Docker Setup
-### Dockerfile CPU
+### Docker on Ubuntu with CPU
 ```
 docker run --name pytorch --rm \
     -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
@@ -27,7 +27,7 @@ docker run --name pytorch --rm \
 jupyter notebook --allow-root
 ```
 
-### Dockerfile GPU
+### Docker on Ubuntu with GPU
 ```
 docker run --name pytorch --rm \
    --runtime=nvidia \
@@ -41,14 +41,27 @@ docker run --name pytorch --rm \
 ```
 
 ### Docker on Windows
+1. setup shared memory at docker settings
+Right click docker icon -> Settings -> Shared Drives -> Check C Drive -> Apply -> Type password -> Restart docker
+![docker_windows_1](res/docker_windows_1.png)
+![docker_windows_2](res/docker_windows_2.png)
+![docker_windows_3](res/docker_windows_3.png)
+2. Install [Xming X Server](https://sourceforge.net/projects/xming/)
+3. Follow [this link](https://blogs.msdn.microsoft.com/jamiedalton/2018/05/17/windows-10-docker-gui/) to setup Xming X Server
+![docker_windows_4](res/docker_windows_4.png)
+![docker_windows_5](res/docker_windows_5.png)
+![docker_windows_6](res/docker_windows_6.png)
+![docker_windows_7](res/docker_windows_7.png)
+4. Run Xming
+5. Open windows 10 powershell & Run this code
 ```
-docker run --name pytorch --rm ^
--p 8888:8888 ^
---mount 'type=bind,src=C:\USERS\naverlabs\Desktop\deeplearning_tutorial,dst=/app' ^
+docker run --name pytorch --rm `
+-p 8888:8888 `
+-p 6006:6006 `
+-e DISPLAY:<IP_Address>:0 `
+--mount type=bind,src=C:\USERS\naverlabs\Desktop\deeplearning_tutorial,dst=/app `
 -it ghryou/pytorch:cpu bash​
 ```
-**(For Windows, please setup shared memory at docker settings)**
-
 
 ### Docker on Mac
 1. Install [homebrew](https://brew.sh/index_ko)
@@ -60,12 +73,10 @@ open -a XQuartz
 ./docker/run.mac.sh ghryou/pytorch:cpu bash
 ```
 
-
 ### Ubuntu Commands
 ```
 sudo chown <User name> -R <directory path>
 ```
-
 
 ### Docker Cheat Sheet
 ```
