@@ -43,11 +43,13 @@ docker run --name pytorch --rm \
 ### Docker on Windows
 1. setup shared memory at docker settings
 Right click docker icon -> Settings -> Shared Drives -> Check C Drive -> Apply -> Type password -> Restart docker
+
 ![docker_windows_1](res/docker_windows_1.png)
 ![docker_windows_2](res/docker_windows_2.png)
 ![docker_windows_3](res/docker_windows_3.png)
 2. Install [Xming X Server](https://sourceforge.net/projects/xming/)
 3. Follow [this link](https://blogs.msdn.microsoft.com/jamiedalton/2018/05/17/windows-10-docker-gui/) to setup Xming X Server
+
 ![docker_windows_4](res/docker_windows_4.png)
 ![docker_windows_5](res/docker_windows_5.png)
 ![docker_windows_6](res/docker_windows_6.png)
