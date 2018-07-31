@@ -92,3 +92,55 @@ docker system prune
 ```
 
 [Push images to Docker Cloud](https://docs.docker.com/docker-cloud/builds/push-images/)
+
+### Jetson Setup
+1. Download JetPack from [Nvidia website](https://developer.nvidia.com/embedded/jetpack)
+2. Makes run files executable with **sudo chmod +x JetPack-L4T-3.3-linux-x64_b39.run**
+3. Run **./JetPack-L4T-3.3-linux-x64_b39.run**
+4. Follow the Commands of JetPack Installer (Install every package)
+![jetson_0](res/jetson_0.png)
+![jetson_1](res/jetson_1.png)
+5. Select **Device accesses Internet via Router/Switch**
+![jetson_2](res/jetson_2.png)
+6. Connect jetson with host PC and follow the instructions
+![jetson_3](res/jetson_3.png)
+7. Connect display to jetson and setup internet connection on jetson
+8. Check IP address of jetson with **ifconfig**
+9. Run **./JetPack-L4T-3.3-linux-x64_b39.run** again
+10. Disable **Flash OS Image to Target**
+![jetson_4](res/jetson_4.png)
+11. Select **Device accesses Internet via Router/Switch**
+![jetson_2](res/jetson_2.png)
+12. Enter jetson's IP address and follow the instructions
+
+### Jetson Pytorch Setup
+1. Install pip3
+```
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install python3-pip
+pip3 install -U pip3
+```
+2. clone pyTorch repo
+```
+git clone http://github.com/pytorch/pytorch
+cd pytorch
+git submodule update --init
+```
+3. install prereqs
+```
+sudo pip install -U setuptools
+sudo pip install -r requirements.txt
+```
+4. Develop Mode:
+```
+python setup.py build_deps
+sudo python setup.py develop
+```
+5. Verify CUDA (from python interactive terminal)
+```
+import torch
+print(torch.__version__)
+print(torch.cuda.is_available())
+```
+
+Reference: https://gist.github.com/dusty-nv/ef2b372301c00c0a9d3203e42fd83426
