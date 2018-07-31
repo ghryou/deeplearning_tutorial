@@ -128,15 +128,15 @@ git submodule update --init
 ```
 3. install prereqs
 ```
-sudo pip install -U setuptools
-sudo pip install -r requirements.txt
+sudo pip3 install -U setuptools
+sudo pip3 install -r requirements.txt
 ```
 4. Develop Mode:
 ```
-python setup.py build_deps
-sudo python setup.py develop
+python3 setup.py build_deps
+sudo python3 setup.py develop
 ```
-5. Verify CUDA (from python interactive terminal)
+5. Verify CUDA (from python3 interactive terminal)
 ```
 import torch
 print(torch.__version__)
